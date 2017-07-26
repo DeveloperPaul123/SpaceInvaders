@@ -22,6 +22,18 @@ public class AlienBullet : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+        else if(collision.tag == "Player")
+        {
+            SpaceShip ship = collision.gameObject.GetComponent<SpaceShip>();
+            if (!ship.isExploding)
+            {
+                ship.isExploding = true;
+                SoundManager.Instance.PlayOneShot(SoundManager.Instance.shipExplosion);
+                ship.GetComponent<SpriteRenderer>().sprite = explodedShipImage;
+                Destroy(gameObject);
+                DestroyObject(ship.gameObject, 0.5f);
+            }
+        }
     }
 
     private void OnBecameInvisible()

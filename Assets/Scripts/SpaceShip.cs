@@ -10,7 +10,6 @@ public class SpaceShip : MonoBehaviour {
 
     public bool isExploding = false;
 
-    public Sprite explodedShipImage;
 
     private void FixedUpdate()
     {
@@ -22,25 +21,6 @@ public class SpaceShip : MonoBehaviour {
             new Vector2(horzPress, vertPress) * speed;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "AlienBullet")
-        {
-            Explode(collision);
-        }
-    }
-
-    public void Explode(Collision2D collision)
-    {
-        if (!isExploding)
-        {
-            isExploding = true;
-            SoundManager.Instance.PlayOneShot(SoundManager.Instance.shipExplosion);
-            GetComponent<SpriteRenderer>().sprite = explodedShipImage;
-            Destroy(collision.gameObject);
-            DestroyObject(gameObject, 0.5f);
-        }
-    }
     // Update is called once per frame
     void Update () {
 		if(Input.GetButtonDown("Jump"))

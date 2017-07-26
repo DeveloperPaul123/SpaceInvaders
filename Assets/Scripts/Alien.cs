@@ -36,19 +36,6 @@ public class Alien : MonoBehaviour {
         baseFireWaitTime = baseFireWaitTime + Random.Range(minimumFireRateTime, maximumFireRateTime);
     }
 
-    void Explode(Collision2D collision)
-    {
-
-        if (!isExploding)
-        {
-            isExploding = true;
-            SoundManager.Instance.PlayOneShot(SoundManager.Instance.alienDies);
-            Destroy(collision.gameObject);
-            DestroyObject(gameObject, 0.5f);
-        }
-
-    }
-
     void TurnAround(int direction)
     {
         Vector2 newVelocity = rigidBody.velocity;
@@ -74,10 +61,6 @@ public class Alien : MonoBehaviour {
         {
             TurnAround(-1);
             MoveDown();
-        }
-        if(collision.gameObject.tag == "Bullet")
-        {
-            Explode(collision);
         }
     }
     public IEnumerator ChangeAlienSprite()

@@ -26,7 +26,23 @@ public class Bullet : MonoBehaviour {
         }
         if(collision.tag == "Alien")
         {
-            IncreaseTextUiScore(); 
+            Alien alien = collision.gameObject.GetComponent<Alien>();
+
+            if (!alien.isExploding)
+            {
+                // increment our score.
+                IncreaseTextUiScore();
+                alien.isExploding = true;
+                // play the sound.
+                SoundManager.Instance.PlayOneShot(SoundManager.Instance.alienDies);
+                // render explosion
+                alien.GetComponent<SpriteRenderer>().sprite = explodedAlienImage;
+                // destroy the bullet
+                Destroy(gameObject);
+                // destroy the 
+                DestroyObject(alien.gameObject, 0.5f);
+            }
+            
         }
     }
 
